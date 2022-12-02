@@ -28,7 +28,8 @@ private fun ci(number: Int, expectedA: String, expectedB: String): TestCase {
 }
 
 val testCases: List<TestCase> = listOf(
-    ci(1, "66487", "197301")
+    ci(1, "66487", "197301"),
+    ci(2, "13924", "13448"),
 )
 
 fun main() = runBlocking {
