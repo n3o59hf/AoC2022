@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package lv.n3o.aoc2022
 
 import lv.n3o.aoc2022.coords.C2
@@ -173,12 +175,14 @@ class InfiniteMap<V>(val original: Map<C2, V>, val horizontal: Boolean, val vert
                 while (x !in xRange) x += diff
                 x
             }
+
             c.x > realMaxX && horizontal -> {
                 var x = c.x
                 val diff = xRange.count()
                 while (x !in xRange) x -= diff
                 x
             }
+
             else -> error("X out of range")
         }
         val y = when {
@@ -189,12 +193,14 @@ class InfiniteMap<V>(val original: Map<C2, V>, val horizontal: Boolean, val vert
                 while (y !in yRange) y += diff
                 y
             }
+
             c.y > realMaxY && horizontal -> {
                 var y = c.y
                 val diff = yRange.count()
                 while (y !in yRange) y -= diff
                 y
             }
+
             else -> error("Y out of range")
         }
 
@@ -234,3 +240,5 @@ operator fun <T> Sequence<T>.get(index: Int) = drop(index).first()
 
 val Boolean.sign get() = if (this) 1 else -1
 val Boolean.signLong get() = if (this) 1L else -1L
+
+fun <T> Iterable<Collection<T>>.intersectAll() = map { it.toSet() }.reduce { a, b -> a.intersect(b) }

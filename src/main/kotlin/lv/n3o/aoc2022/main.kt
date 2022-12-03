@@ -30,6 +30,7 @@ private fun ci(number: Int, expectedA: String, expectedB: String): TestCase {
 val testCases: List<TestCase> = listOf(
     ci(1, "66487", "197301"),
     ci(2, "13924", "13448"),
+    ci(3, "8088", "2522"),
 )
 
 fun main() = runBlocking {
@@ -100,6 +101,7 @@ fun main() = runBlocking {
             printTableSeparator()
         }
         minTime = min(minTime, time)
+        @Suppress("KotlinConstantConditions")
         if (REPEAT_RUNS != 1) {
             println("RUN ${runId.toString().padStart(5, '0')}\tExecution time: $time")
         } else {
@@ -107,6 +109,7 @@ fun main() = runBlocking {
         }
         println()
     }
+    @Suppress("KotlinConstantConditions")
     if (REPEAT_RUNS != 1) {
         println("Fastest run: $minTime")
         println()
@@ -206,7 +209,6 @@ class TestResult(
     val time: Long,
 ) {
     val name get() = tc.name
-    val input get() = tc.input
 
     val passA get() = answerA is TestAnswer.Success && tc.expectedA == answerA.result
     val passB get() = answerB is TestAnswer.Success && tc.expectedB == answerB.result
