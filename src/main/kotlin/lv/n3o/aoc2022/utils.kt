@@ -210,7 +210,7 @@ class InfiniteMap<V>(val original: Map<C2, V>, val horizontal: Boolean, val vert
     fun contains(coord: C2) = (horizontal || coord.x in xRange) && (vertical || coord.y in yRange)
 }
 
-fun <E> List<List<E>>.transpose() = List(this[0].size) { i -> this.map { it[i] } }
+fun <E> List<List<E>>.transpose(defaultValue: E) = List(maxOf{it.size}) { i -> this.map { it.getOrElse(i){defaultValue} } }
 
 
 class MapWithDefault<K, V>(private val map: Map<K, V>, private val default: V) : Map<K, V> by map {
