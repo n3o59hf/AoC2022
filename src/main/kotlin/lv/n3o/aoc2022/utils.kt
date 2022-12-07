@@ -5,6 +5,7 @@ package lv.n3o.aoc2022
 import lv.n3o.aoc2022.coords.C2
 import kotlin.math.abs
 import kotlin.math.roundToInt
+import kotlin.reflect.KProperty
 
 private val startTime = System.nanoTime()
 
@@ -242,3 +243,20 @@ val Boolean.sign get() = if (this) 1 else -1
 val Boolean.signLong get() = if (this) 1L else -1L
 
 fun <T> Iterable<Collection<T>>.intersectAll() = map { it.toSet() }.reduce { a, b -> a.intersect(b) }
+
+fun <T> resettableLazy(initializer: () -> T) = ResettableLazy(initializer)
+
+class ResettableLazy<T>(private val initializer: () -> T) {
+    private var value: T? = null
+
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): T {
+        if (value == null) {
+            value = initializer()
+        }
+        return value!!
+    }
+
+    fun reset() {
+        value = null
+    }
+}
