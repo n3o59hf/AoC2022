@@ -83,5 +83,7 @@ data class C2(val x: Int, val y: Int) : Comparable<C2> {
         val DIRECTION_UP = C2(0, -1)
         val DIRECTION_RIGHT = C2(1, 0)
         val DIRECTION_LEFT = C2(-1, 0)
+
+        val DIRECTIONS = listOf(DIRECTION_DOWN, DIRECTION_UP, DIRECTION_RIGHT, DIRECTION_LEFT)
     }
 }
