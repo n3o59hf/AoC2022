@@ -114,7 +114,6 @@ fun <T> Map<C2, T>.compactDebugDraw(conversion: (T?) -> Char = { it?.toString()?
     println("\n$output\n")
 }
 
-
 fun <T> Map<C2, T>.debugDraw(cellWidth: Int = 1, conversion: (T?) -> Any = { it.toString() }) {
     val allKeys = keys
 
@@ -140,6 +139,7 @@ fun <T> Map<C2, T>.debugDraw(cellWidth: Int = 1, conversion: (T?) -> Any = { it.
     println("\n$output\n")
 }
 
+fun Set<C2>.drawDebug() = associate { it to '#' }.compactDebugDraw()
 
 class MapWithLazy<K, V>(val backingMap: MutableMap<K, V>, val lazy: (K) -> V) : MutableMap<K, V> by backingMap {
     override operator fun get(key: K): V {

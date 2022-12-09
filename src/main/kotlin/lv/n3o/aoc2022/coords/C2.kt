@@ -2,6 +2,7 @@ package lv.n3o.aoc2022.coords
 
 import kotlin.math.PI
 import kotlin.math.abs
+import kotlin.math.absoluteValue
 import kotlin.math.atan2
 
 data class C2(val x: Int, val y: Int) : Comparable<C2> {
@@ -51,6 +52,10 @@ data class C2(val x: Int, val y: Int) : Comparable<C2> {
     fun neighbors8() = listOf(
         up, right, down, left, this + C2(1, -1), this + C2(1, 1), this + C2(-1, 1), this + C2(-1, -1)
     )
+
+    fun isNeighbor4(other: C2) = distance(other) == 1
+
+    fun isNeighbor8(other: C2) = this != other && (x-other.x).absoluteValue <= 1 && (y-other.y).absoluteValue <= 1
 
     fun arrayIndex(max: C2) = if (x < 0 || y < 0 || x > max.x || y > max.y) null else x + y * (max.x + 1)
 
