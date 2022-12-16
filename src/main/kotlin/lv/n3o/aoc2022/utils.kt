@@ -211,7 +211,8 @@ class InfiniteMap<V>(val original: Map<C2, V>, val horizontal: Boolean, val vert
     fun contains(coord: C2) = (horizontal || coord.x in xRange) && (vertical || coord.y in yRange)
 }
 
-fun <E> List<List<E>>.transpose(defaultValue: E) = List(maxOf{it.size}) { i -> this.map { it.getOrElse(i){defaultValue} } }
+fun <E> List<List<E>>.transpose(defaultValue: E) =
+    List(maxOf { it.size }) { i -> this.map { it.getOrElse(i) { defaultValue } } }
 
 
 class MapWithDefault<K, V>(private val map: Map<K, V>, private val default: V) : Map<K, V> by map {
@@ -260,3 +261,26 @@ class ResettableLazy<T>(private val initializer: () -> T) {
         value = null
     }
 }
+
+fun Collection<IntRange>.normalize(): Collection<IntRange> {
+    if (size < 2) return this
+    val result = mutableListOf<IntRange>()
+    sortedBy { it.first }.forEach { next ->
+        if (result.isEmpty()) {
+            result.add(next)
+        } else {
+            val last = result.last()
+            if (last.last >= next.first - 1) {
+                if (next.last > last.last) {
+                    result[result.lastIndex] = last.first..next.last
+                } // else next dropped as it falls into range
+            } else {
+                result.add(next)
+            }
+        }
+    }
+    return result
+}
+
+
+fun IntRange.limit(min: Int, max: Int) = first.coerceIn(min..max)..last.coerceIn(min..max)
