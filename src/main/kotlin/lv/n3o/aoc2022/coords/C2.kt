@@ -92,3 +92,6 @@ data class C2(val x: Int, val y: Int) : Comparable<C2> {
         val DIRECTIONS = listOf(DIRECTION_DOWN, DIRECTION_UP, DIRECTION_RIGHT, DIRECTION_LEFT)
     }
 }
+
+fun List<C2>.shift(amount: C2) = map { it+amount }
+fun Set<C2>.shift(amount: C2) = map { it+amount }.toSet()
