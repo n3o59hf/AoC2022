@@ -5,6 +5,9 @@ import kotlin.math.abs
 data class C3(
     val x: Int, val y: Int, val z: Int
 ) : Comparable<C3> {
+    val neighbors6 by lazy {
+        SIX_DIRECTIONS.map { it + this }
+    }
     val rotations by lazy {
         listOf(
             this,
@@ -72,4 +75,16 @@ data class C3(
 
     override fun compareTo(other: C3) =
         x.compareTo(other.x).takeIf { it != 0 } ?: y.compareTo(other.y).takeIf { it != 0 } ?: z.compareTo(other.z)
+
+    companion object {
+        val ORIGIN = C3(0, 0, 0)
+        val SIX_DIRECTIONS = listOf(
+            C3(1,0,0),
+            C3(-1,0,0),
+            C3(0,1,0),
+            C3(0,-1,0),
+            C3(0,0,1),
+            C3(0,0,-1)
+        )
+    }
 }
