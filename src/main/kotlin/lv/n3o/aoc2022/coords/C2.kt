@@ -17,6 +17,8 @@ data class C2(val x: Int, val y: Int) : Comparable<C2> {
     operator fun minus(other: C2) = C2(x - other.x, y - other.y)
     operator fun times(other: Int) = C2(x * other, y * other)
     operator fun div(other: Int): C2 = C2(x / other, y / other)
+    operator fun rem(other: C2): C2 =
+        C2(x % other.x, y % other.y).let { if (it.x < 0 || it.y < 0) (it + other) % other else it }
 
     fun distance(to: C2) = abs(to.x - x) + abs(to.y - y)
 
@@ -55,7 +57,7 @@ data class C2(val x: Int, val y: Int) : Comparable<C2> {
 
     fun isNeighbor4(other: C2) = distance(other) == 1
 
-    fun isNeighbor8(other: C2) = this != other && (x-other.x).absoluteValue <= 1 && (y-other.y).absoluteValue <= 1
+    fun isNeighbor8(other: C2) = this != other && (x - other.x).absoluteValue <= 1 && (y - other.y).absoluteValue <= 1
 
     fun arrayIndex(max: C2) = if (x < 0 || y < 0 || x > max.x || y > max.y) null else x + y * (max.x + 1)
 
@@ -93,5 +95,5 @@ data class C2(val x: Int, val y: Int) : Comparable<C2> {
     }
 }
 
-fun List<C2>.shift(amount: C2) = map { it+amount }
-fun Set<C2>.shift(amount: C2) = map { it+amount }.toSet()
+fun List<C2>.shift(amount: C2) = map { it + amount }
+fun Set<C2>.shift(amount: C2) = map { it + amount }.toSet()
