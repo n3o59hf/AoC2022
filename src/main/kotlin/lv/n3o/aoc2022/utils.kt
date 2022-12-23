@@ -98,6 +98,14 @@ fun Int.nextPowerOf2(): Int {
     return number
 }
 
+fun Set<C2>.calculateBoundingBox(): Pair<C2,C2> {
+    val minX = minOf { it.x }
+    val maxX = maxOf { it.x }
+    val minY = minOf { it.y }
+    val maxY = maxOf { it.y }
+    return C2(minX, minY) to C2(maxX, maxY)
+}
+
 fun <T> Map<C2, T>.compactDebugDraw(conversion: (T?) -> Char = { it?.toString()?.get(0) ?: ' ' }) {
     val allKeys = keys
 
