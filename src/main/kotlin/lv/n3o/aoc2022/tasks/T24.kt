@@ -8,16 +8,16 @@ import lv.n3o.aoc2022.coords.C2
 
 class T24(input: Input) : Task(input) {
     private val data = input.asCoordGrid().filterValues { it != '#' }
-    val movementField = data.keys
-    val entrance = data.keys.min()
-    val exit = data.keys.max()
-    val blizzardBox = (data.keys - entrance - exit).calculateBoundingBox()
-    val minX = blizzardBox.first.x
-    val maxX = blizzardBox.second.x
-    val minY = blizzardBox.first.y
-    val maxY = blizzardBox.second.y
+    private val movementField = data.keys
+    private val entrance = data.keys.min()
+    private val exit = data.keys.max()
+    private val blizzardBox = (data.keys - entrance - exit).calculateBoundingBox()
+    private val minX = blizzardBox.first.x
+    private val maxX = blizzardBox.second.x
+    private val minY = blizzardBox.first.y
+    private val maxY = blizzardBox.second.y
 
-    val initialBlizards = data
+    private val initialBlizzards = data
         .mapNotNull { (key, value) ->
             when (value) {
                 '>' -> C2.DIRECTION_RIGHT
@@ -31,7 +31,7 @@ class T24(input: Input) : Task(input) {
     override fun a(): Int {
         var steps = 0
 
-        var field = Field(setOf(entrance), initialBlizards)
+        var field = Field(setOf(entrance), initialBlizzards)
 
         while(!field.positions.contains(exit)) {
             steps++
@@ -42,7 +42,7 @@ class T24(input: Input) : Task(input) {
 
     override fun b(): Int {
         var steps = 0
-        var field = Field(setOf(entrance), initialBlizards)
+        var field = Field(setOf(entrance), initialBlizzards)
 
         while(!field.positions.contains(exit)) {
             steps++
